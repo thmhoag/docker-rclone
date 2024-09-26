@@ -1,13 +1,11 @@
-FROM alpine:3.8
-
-ENV RCLONE_VERSION=current
-ENV ARCH=amd64
+## This is a hack, we need to find a base that works properly
+FROM thmhoag/rclone:1.0.0
 
 RUN apk update && apk add openssl ca-certificates fuse
 RUN cd /tmp \
-    && wget -q http://downloads.rclone.org/rclone-${RCLONE_VERSION}-linux-${ARCH}.zip \
-    && unzip /tmp/rclone-${RCLONE_VERSION}-linux-${ARCH}.zip \
-    && mv /tmp/rclone-*-linux-${ARCH}/rclone /usr/bin \
+    && wget -q https://downloads.rclone.org/v1.68.0/rclone-v1.68.0-linux-amd64.zip \
+    && unzip /tmp/rclone-v1.68.0-linux-amd64.zip \
+    && mv /tmp/rclone-*-linux-amd64/rclone /usr/bin \
     && rm -r /tmp/rclone*
 
 VOLUME /config
